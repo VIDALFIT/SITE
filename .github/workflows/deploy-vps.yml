@@ -23,7 +23,7 @@ jobs:
                 with:
                     context: .
                     push: true
-                    tags: vidalfit/site:latest
+                    tags: francoisvid/vidalfit-web:latest
 
             -   name: Deploy to VPS
                 uses: appleboy/ssh-action@master
@@ -33,6 +33,6 @@ jobs:
                     key: ${{ secrets.SSH_KEY }}
                     script: |
                         cd /opt/vidalfit/web
-                        docker pull vidalfit/site:latest
+                        docker pull francoisvid/vidalfit-web:latest
                         docker compose down
                         docker compose up -d
