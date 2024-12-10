@@ -22,6 +22,7 @@ jobs:
                 uses: docker/build-push-action@v5
                 with:
                     context: .
+                    file: ./docker/prod/Dockerfile
                     push: true
                     tags: francoisvid/vidalfit-web:latest
 
@@ -32,7 +33,6 @@ jobs:
                     username: ${{ secrets.VPS_USERNAME }}
                     key: ${{ secrets.SSH_KEY }}
                     script: |
-                        cd /opt/vidalfit/web
-                        docker pull francoisvid/vidalfit-web:latest
-                        docker compose down
-                        docker compose up -d
+                        cd /opt/vidalfit
+                        docker compose pull web
+                        docker compose up -d web
