@@ -1,6 +1,6 @@
-import {useState} from 'react';
-import {motion, AnimatePresence} from 'framer-motion';
-import {Mail, Clock, MapPin, ChevronDown, MessageSquare, Users, Settings} from 'lucide-react';
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Clock, MapPin, ChevronDown, MessageSquare, Users, Settings } from 'lucide-react';
 
 interface FAQItem {
     category: string;
@@ -48,6 +48,7 @@ const faqs: FAQItem[] = [
 
 export function Support() {
     const [activeQuestion, setActiveQuestion] = useState<number | null>(null);
+    const [showSuccess, setShowSuccess] = useState(false);
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -58,26 +59,20 @@ export function Support() {
     const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Construire le corps du mail avec les informations du formulaire
         const mailBody = `
-            Nom: ${formData.name}
-            Email: ${formData.email}
-            Sujet: ${formData.subject}
-            
-            Message:
-            ${formData.message}
-              `.trim();
+Nom: ${formData.name}
+Email: ${formData.email}
+Sujet: ${formData.subject}
 
-        // Encoder les paramètres pour l'URL mailto
-        const mailtoParams = new URLSearchParams({
-            subject: `Support VidalFit - ${formData.subject}`,
-            body: mailBody
-        }).toString();
+Message:
+${formData.message}
+`.trim();
 
-        // Ouvrir le client mail par défaut
-        window.location.href = `mailto:contact@vidalfit.fr?${mailtoParams}`;
+        const encodedSubject = encodeURIComponent(`Support VidalFit - ${formData.subject}`);
+        const encodedBody = encodeURIComponent(mailBody);
 
-        // Réinitialiser le formulaire
+        window.location.href = `mailto:contact@vidalfit.fr?subject=${encodedSubject}&body=${encodedBody}`;
+
         setFormData({
             name: '',
             email: '',
@@ -85,8 +80,8 @@ export function Support() {
             message: ''
         });
 
-        // Afficher un message de confirmation (optionnel)
-        alert('Votre client mail va s\'ouvrir avec votre message. Merci de nous avoir contacté !');
+        setShowSuccess(true);
+        setTimeout(() => setShowSuccess(false), 5000);
     };
 
     return (
@@ -94,15 +89,14 @@ export function Support() {
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 {/* Hero Section */}
                 <motion.div
-                    initial={{opacity: 0, y: 20}}
-                    animate={{opacity: 1, y: 0}}
-                    transition={{duration: 0.6}}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6 }}
                     className="text-center mb-16"
                 >
                     <h1 className="text-4xl font-bold text-white mb-4">
                         Comment pouvons-nous
-                        <span
-                            className="bg-gradient-to-r from-brand-primary to-brand-light bg-clip-text text-transparent"> vous aider ?</span>
+                        <span className="bg-gradient-to-r from-brand-primary to-brand-light bg-clip-text text-transparent"> vous aider ?</span>
                     </h1>
                     <p className="text-gray-400 max-w-2xl mx-auto">
                         Notre équipe est là pour vous accompagner dans votre parcours fitness.
@@ -111,13 +105,13 @@ export function Support() {
 
                 {/* Contact Information */}
                 <motion.div
-                    initial={{opacity: 0, y: 20}}
-                    animate={{opacity: 1, y: 0}}
-                    transition={{duration: 0.6, delay: 0.2}}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.2 }}
                     className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16"
                 >
                     <div className="bg-white/5 rounded-lg p-6 border border-white/10 flex items-start space-x-4">
-                        <Mail className="h-6 w-6 text-brand-primary"/>
+                        <Mail className="h-6 w-6 text-brand-primary" />
                         <div>
                             <h3 className="text-white font-semibold">Email Support</h3>
                             <p className="text-gray-400">contact@vidalfit.fr</p>
@@ -125,7 +119,7 @@ export function Support() {
                     </div>
 
                     <div className="bg-white/5 rounded-lg p-6 border border-white/10 flex items-start space-x-4">
-                        <Clock className="h-6 w-6 text-brand-primary"/>
+                        <Clock className="h-6 w-6 text-brand-primary" />
                         <div>
                             <h3 className="text-white font-semibold">Heures d'ouverture</h3>
                             <p className="text-gray-400">Lun-Ven: 9h-18h</p>
@@ -133,7 +127,7 @@ export function Support() {
                     </div>
 
                     <div className="bg-white/5 rounded-lg p-6 border border-white/10 flex items-start space-x-4">
-                        <MapPin className="h-6 w-6 text-brand-primary"/>
+                        <MapPin className="h-6 w-6 text-brand-primary" />
                         <div>
                             <h3 className="text-white font-semibold">Localisation</h3>
                             <p className="text-gray-400">France (UTC+1)</p>
@@ -145,9 +139,9 @@ export function Support() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
                     {/* Contact Form */}
                     <motion.div
-                        initial={{opacity: 0, x: -20}}
-                        animate={{opacity: 1, x: 0}}
-                        transition={{duration: 0.6, delay: 0.4}}
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
                     >
                         <h2 className="text-2xl font-bold text-white mb-6">Contactez-nous</h2>
                         <form onSubmit={handleSubmit} className="space-y-6">
@@ -159,7 +153,7 @@ export function Support() {
                                     type="text"
                                     id="name"
                                     value={formData.name}
-                                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                     className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
                                     required
                                 />
@@ -173,7 +167,7 @@ export function Support() {
                                     type="email"
                                     id="email"
                                     value={formData.email}
-                                    onChange={(e) => setFormData({...formData, email: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                     className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
                                     required
                                 />
@@ -186,7 +180,7 @@ export function Support() {
                                 <select
                                     id="subject"
                                     value={formData.subject}
-                                    onChange={(e) => setFormData({...formData, subject: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, subject: e.target.value })}
                                     className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
                                 >
                                     <option value="Technical Issue">Problème Technique</option>
@@ -203,7 +197,7 @@ export function Support() {
                                 <textarea
                                     id="message"
                                     value={formData.message}
-                                    onChange={(e) => setFormData({...formData, message: e.target.value})}
+                                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                                     rows={4}
                                     className="w-full px-4 py-2 rounded-lg bg-white/5 border border-white/10 text-white focus:outline-none focus:ring-2 focus:ring-brand-primary"
                                     required
@@ -211,8 +205,8 @@ export function Support() {
                             </div>
 
                             <motion.button
-                                whileHover={{scale: 1.05}}
-                                whileTap={{scale: 0.95}}
+                                whileHover={{ scale: 1.05 }}
+                                whileTap={{ scale: 0.95 }}
                                 type="submit"
                                 className="w-full px-6 py-3 bg-brand-primary text-black font-semibold rounded-lg hover:bg-brand-dark transition-colors duration-200"
                             >
@@ -223,15 +217,15 @@ export function Support() {
 
                     {/* How to Get Help */}
                     <motion.div
-                        initial={{opacity: 0, x: 20}}
-                        animate={{opacity: 1, x: 0}}
-                        transition={{duration: 0.6, delay: 0.4}}
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ duration: 0.6, delay: 0.4 }}
                     >
                         <h2 className="text-2xl font-bold text-white mb-6">Comment obtenir de l'aide</h2>
                         <div className="space-y-6">
                             <div className="bg-white/5 rounded-lg p-6 border border-white/10">
                                 <div className="flex items-center space-x-3 mb-4">
-                                    <MessageSquare className="h-6 w-6 text-brand-primary"/>
+                                    <MessageSquare className="h-6 w-6 text-brand-primary" />
                                     <h3 className="text-lg font-semibold text-white">Support en ligne</h3>
                                 </div>
                                 <p className="text-gray-400">
@@ -241,7 +235,7 @@ export function Support() {
 
                             <div className="bg-white/5 rounded-lg p-6 border border-white/10">
                                 <div className="flex items-center space-x-3 mb-4">
-                                    <Users className="h-6 w-6 text-brand-primary"/>
+                                    <Users className="h-6 w-6 text-brand-primary" />
                                     <h3 className="text-lg font-semibold text-white">Communauté</h3>
                                 </div>
                                 <p className="text-gray-400">
@@ -251,12 +245,11 @@ export function Support() {
 
                             <div className="bg-white/5 rounded-lg p-6 border border-white/10">
                                 <div className="flex items-center space-x-3 mb-4">
-                                    <Settings className="h-6 w-6 text-brand-primary"/>
+                                    <Settings className="h-6 w-6 text-brand-primary" />
                                     <h3 className="text-lg font-semibold text-white">Guide technique</h3>
                                 </div>
                                 <p className="text-gray-400">
-                                    Consultez notre base de connaissances pour des solutions rapides aux problèmes
-                                    courants.
+                                    Consultez notre base de connaissances pour des solutions rapides aux problèmes courants.
                                 </p>
                             </div>
                         </div>
@@ -265,9 +258,9 @@ export function Support() {
 
                 {/* FAQ Section */}
                 <motion.div
-                    initial={{opacity: 0, y: 20}}
-                    animate={{opacity: 1, y: 0}}
-                    transition={{duration: 0.6, delay: 0.6}}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.6 }}
                     className="mb-16"
                 >
                     <h2 className="text-2xl font-bold text-white mb-8">Questions fréquentes</h2>
@@ -292,10 +285,10 @@ export function Support() {
                                 <AnimatePresence>
                                     {activeQuestion === index && (
                                         <motion.div
-                                            initial={{height: 0, opacity: 0}}
-                                            animate={{height: 'auto', opacity: 1}}
-                                            exit={{height: 0, opacity: 0}}
-                                            transition={{duration: 0.2}}
+                                            initial={{ height: 0, opacity: 0 }}
+                                            animate={{ height: 'auto', opacity: 1 }}
+                                            exit={{ height: 0, opacity: 0 }}
+                                            transition={{ duration: 0.2 }}
                                             className="overflow-hidden"
                                         >
                                             <div className="px-6 py-4 border-t border-white/10">
@@ -309,6 +302,20 @@ export function Support() {
                     </div>
                 </motion.div>
             </div>
+
+            {/* Success Notification */}
+            <AnimatePresence>
+                {showSuccess && (
+                    <motion.div
+                        initial={{ opacity: 0, y: 10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        exit={{ opacity: 0, y: -10 }}
+                        className="fixed bottom-4 right-4 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg z-50"
+                    >
+                        Votre client mail va s'ouvrir avec votre message. Merci de nous avoir contacté !
+                    </motion.div>
+                )}
+            </AnimatePresence>
         </div>
     );
 }
