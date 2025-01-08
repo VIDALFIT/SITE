@@ -6,6 +6,7 @@ import { CallToAction } from './components/CallToAction';
 import { TermsOfService } from './pages/TermsOfService';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { Subscription } from './pages/Subscription';
+import { Support } from './pages/Support';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 export default function App() {
@@ -25,6 +26,7 @@ export default function App() {
           <Route path="/cgu" element={<TermsOfService />} />
           <Route path="/confidentialite" element={<PrivacyPolicy />} />
           <Route path="/abonnement" element={<Subscription />} />
+          <Route path="/support" element={<Support />} />
         </Routes>
       </div>
     </Router>

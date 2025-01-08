@@ -44,6 +44,13 @@ export function Navbar() {
                         </a>
 
                         <Link
+                            to="/support"
+                            className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
+                        >
+                            Support
+                        </Link>
+
+                        <Link
                             to="/cgu"
                             className="text-sm font-medium text-gray-300 hover:text-white transition-colors"
                         >
@@ -90,6 +97,12 @@ export function Navbar() {
                         >
                             Fonctionnalités
                         </a>
+                        <Link
+                            to="/support"
+                            className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white"
+                        >
+                            Support
+                        </Link>
                         <Link
                             to="/cgu"
                             className="block px-3 py-2 text-base font-medium text-gray-300 hover:text-white"
