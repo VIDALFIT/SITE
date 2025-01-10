@@ -1,0 +1,23 @@
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://vidalfit.fr/sitemap.xml
+
+# Interdire l'accès aux dossiers privés
+Disallow: /admin/
+Disallow: /private/
+Disallow: /assets/
+Disallow: /.env
+Disallow: /wp-admin/
+Disallow: /wp-includes/
+
+# Autoriser les bots spécifiques
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: YandexBot
+Allow: /
