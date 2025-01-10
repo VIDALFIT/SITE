@@ -11,3 +11,19 @@ FROM nginx:alpine
 WORKDIR /usr/share/nginx/html
 COPY --from=build /app/dist/ .
 COPY docker/prod/nginx/default.conf /etc/nginx/conf.d/default.conf
+
+# Ajout du robots.txt
+RUN echo "User-agent: *\n\
+Allow: /\n\
+\n\
+# Sitemap\n\
+Sitemap: https://vidalfit.fr/sitemap.xml\n\
+\n\
+# Interdire l'accès aux dossiers privés\n\
+Disallow: /admin/\n\
+Disallow: /private/\n\
+Disallow: /assets/\n\
+Disallow: /.env\n\
+Disallow: /wp-admin/\n\
+Disallow: /wp-includes/" > /usr/share/nginx/html/robots.txt && \
+chmod 644 /usr/share/nginx/html/robots.txt
