@@ -13,17 +13,18 @@ COPY --from=build /app/dist/ .
 COPY docker/prod/nginx/default.conf /etc/nginx/conf.d/default.conf
 
 # Ajout du robots.txt
-RUN echo "User-agent: *\n\
-Allow: /\n\
-\n\
-# Sitemap\n\
-Sitemap: https://vidalfit.fr/sitemap.xml\n\
-\n\
-# Interdire l'accès aux dossiers privés\n\
-Disallow: /admin/\n\
-Disallow: /private/\n\
-Disallow: /assets/\n\
-Disallow: /.env\n\
-Disallow: /wp-admin/\n\
-Disallow: /wp-includes/" > /usr/share/nginx/html/robots.txt && \
-chmod 644 /usr/share/nginx/html/robots.txt
+RUN printf "%s\n" \
+    "User-agent: *" \
+    "Allow: /" \
+    "" \
+    "# Sitemap" \
+    "Sitemap: https://vidalfit.fr/sitemap.xml" \
+    "" \
+    "# Interdire l'accès aux dossiers privés" \
+    "Disallow: /admin/" \
+    "Disallow: /private/" \
+    "Disallow: /assets/" \
+    "Disallow: /.env" \
+    "Disallow: /wp-admin/" \
+    "Disallow: /wp-includes/" > /usr/share/nginx/html/robots.txt && \
+    chmod 644 /usr/share/nginx/html/robots.txt
