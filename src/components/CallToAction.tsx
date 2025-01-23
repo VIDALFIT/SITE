@@ -1,6 +1,6 @@
 import { Download } from 'lucide-react';
 import { motion } from 'framer-motion';
-import {trackAppDownload} from "../utils/analytics.jsx";
+import {trackAppDownload} from "../utils/analytics.tsx";
 
 export function CallToAction() {
     return (
