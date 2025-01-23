@@ -1,5 +1,6 @@
 import { Download } from 'lucide-react';
 import { motion } from 'framer-motion';
+import {trackAppDownload} from "../utils/analytics.jsx";
 
 export function CallToAction() {
     return (
@@ -30,6 +31,7 @@ export function CallToAction() {
                                 whileTap={{ scale: 0.95 }}
                                 href="https://apps.apple.com/fr/app/vidalfit-your-gym-companion/id6475721253"
                                 target="_blank"
+                                onClick={trackAppDownload}
                                 className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-black bg-brand-primary hover:bg-brand-dark transition-colors duration-200">
                                 <Download className="h-5 w-5 mr-2"/>
                                 Télécharger pour iOS

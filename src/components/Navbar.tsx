@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {Menu, X} from 'lucide-react';
 import {Link, useLocation} from 'react-router-dom';
 import logo from '../assets/icon-only.png';
+import { trackAppDownload } from '../utils/analytics.jsx';
 
 export function Navbar() {
     const [isScrolled, setIsScrolled] = useState(false);
@@ -70,7 +71,8 @@ export function Navbar() {
                         </Link>
 
                         <a
-                            href="#download"
+                            href="https://apps.apple.com/fr/app/vidalfit-your-gym-companion/id6475721253"
+                            onClick={trackAppDownload}
                             className="px-4 py-2 text-sm font-medium text-black bg-brand-primary hover:bg-brand-dark rounded-lg transition-colors"
                         >
                             Télécharger l'application
@@ -128,7 +130,8 @@ export function Navbar() {
                             Abonnement
                         </Link>
                         <a
-                            href="#download"
+                            href="https://apps.apple.com/fr/app/vidalfit-your-gym-companion/id6475721253"
+                            onClick={trackAppDownload}
                             className="block px-3 py-2 text-base font-medium text-black bg-brand-primary hover:bg-brand-dark rounded-lg"
                         >
                             Télécharger l'application

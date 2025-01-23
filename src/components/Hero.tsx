@@ -1,5 +1,6 @@
 import { ArrowRight, Sparkles, TrendingUp } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { trackAppDownload } from '../utils/analytics.jsx';
 
 export function Hero() {
     return (
@@ -57,6 +58,7 @@ export function Hero() {
                             whileTap={{ scale: 0.95 }}
                             href="https://apps.apple.com/fr/app/vidalfit-your-gym-companion/id6475721253"
                             target="_blank"
+                            onClick={trackAppDownload}
                             className="w-full sm:w-auto px-8 py-4 bg-brand-primary hover:bg-brand-dark text-black font-semibold rounded-lg inline-flex items-center justify-center transition-colors duration-200"
                         >
                             Télécharger maintenant
