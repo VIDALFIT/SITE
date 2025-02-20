@@ -24,7 +24,7 @@ export function Hero() {
                         transition={{ duration: 0.6 }}
                         className="inline-flex items-center justify-center px-4 py-2 mb-8 rounded-full bg-white/10 backdrop-blur-sm border border-white/20">
                         <Sparkles className="h-4 w-4 text-brand-primary mr-2"/>
-                        <span className="text-sm text-white/80">Votre companion personnel</span>
+                        <span className="text-sm text-white/80">Votre compagnon personnel</span>
                     </motion.div>
 
                     <motion.h1
