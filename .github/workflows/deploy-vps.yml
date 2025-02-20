@@ -33,6 +33,6 @@ jobs:
                     username: ${{ secrets.VPS_USERNAME }}
                     key: ${{ secrets.SSH_KEY }}
                     script: |
-                        cd /opt/vidalfit
+                        cd /opt/vidalfit-web
                         docker compose pull web
                         docker compose up -d web
